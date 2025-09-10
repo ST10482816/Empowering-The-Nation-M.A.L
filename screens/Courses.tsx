@@ -1,45 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Image } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
-import ContactScreen from './screens/Contact';
-import FeesCalcScreen from './screens/Fees-Calc';
-import IndividualCourseScreen from './screens/IndividualCourseScreen';
-import SixMonthCourses from './screens/SixMonthCourses';
-import SixWeekCourses from './screens/SixWeekCourses';
-import Courses from './screens/Courses';
-
-const Stack = createNativeStackNavigator();
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
   Home: undefined;
   ContactScreen: undefined;
   FeesCalcScreen: undefined;
-  Courses: undefined;
   IndividualCourse: undefined;
-  SixMonthCourses: undefined;
   SixWeekCourses: undefined;
+  SixMonthCourses: undefined;
+  Courses: undefined;
 };
 
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
+type CoursesNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Courses'>;
 
-interface HomeScreenProps {
-  navigation: HomeScreenNavigationProp;
+interface CoursesProps {
+  navigation: CoursesNavigationProp;
 }
 
-function HomeScreen({ navigation }: HomeScreenProps) {
+export default function Courses({ navigation }: CoursesProps) {
   const [dropdownVisible, setDropdownVisible] = React.useState(false);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <Image
-              style={styles.logo}
-              source={require('../empowering-the-nation/img/bird-logo-png.png')}
-              resizeMode="contain"/>
-        <Text style={styles.title}>Empowering the Nation</Text>
+          style={styles.logo}
+          source={require('../img/bird-logo-png.png')}
+          resizeMode="contain"
+        />
+        <Text style={styles.title}>Courses</Text>
         <View style={styles.dropdownContainer}>
           <TouchableOpacity
             style={styles.dropdownToggle}
@@ -47,6 +38,8 @@ function HomeScreen({ navigation }: HomeScreenProps) {
           >
             <Text style={styles.dropdownToggleText}>Menu ▼</Text>
           </TouchableOpacity>
+
+          {/* Dropdown Menu */}
           {dropdownVisible && (
             <View style={styles.dropdownMenu}>
               <TouchableOpacity
@@ -58,7 +51,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
               >
                 <Text style={styles.dropdownItemText}>Home</Text>
               </TouchableOpacity>
-
+  
               <TouchableOpacity
                 style={styles.dropdownItem}
                 onPress={() => {
@@ -68,7 +61,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
               >
                 <Text style={styles.dropdownItemText}>Courses</Text>
               </TouchableOpacity>
-
+  
               <TouchableOpacity
                 style={styles.dropdownItem}
                 onPress={() => {
@@ -78,7 +71,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
               >
                 <Text style={styles.dropdownItemText}>Calculate Fees</Text>
               </TouchableOpacity>
-
+              
               <TouchableOpacity
                 style={styles.dropdownItem}
                 onPress={() => {
@@ -90,27 +83,6 @@ function HomeScreen({ navigation }: HomeScreenProps) {
               </TouchableOpacity>
             </View>
           )}
-        </View>
-      </View>
-
-      {/* Mission & Vision */}
-      <Text style={styles.heading}>Join Our Mission to Empower the Nation</Text>
-      <View style={styles.cardsRow}>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Mission</Text>
-          <Text style={styles.cardText}>
-            To open doors to dignified work by delivering affordable, practical training in
-            essential trades—helping every learner build skills, confidence, and income for
-            their family and community.
-          </Text>
-        </View>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Vision</Text>
-          <Text style={styles.cardText}>
-            A skilled nation where opportunities in plumbing, electrical, carpentry, solar,
-            and other hands-on trades are accessible to all—creating jobs, supporting small
-            businesses, and powering local economies.
-          </Text>
         </View>
       </View>
 
@@ -132,24 +104,7 @@ function HomeScreen({ navigation }: HomeScreenProps) {
           </TouchableOpacity>
         </View>
       </View>
-      <StatusBar style="auto" />
-    </SafeAreaView>
-  );
-}
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="ContactScreen" component={ContactScreen} options={{ title: 'Contact Us' }} />
-        <Stack.Screen name="SixWeekCourses" component={SixWeekCourses} options={{ title: 'Six Week Courses' }} />
-        <Stack.Screen name="SixMonthCourses" component={SixMonthCourses} options={{ title: 'Six Month Courses' }} />
-        <Stack.Screen name="FeesCalcScreen" component={FeesCalcScreen} options={{ title: 'Fees Calculations' }} />
-        <Stack.Screen name="IndividualCourse" component={IndividualCourseScreen} options={{ title: 'Course Details' }} />
-        <Stack.Screen name="Courses" component={Courses} options={{ title: 'Courses' }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    </ScrollView>
   );
 }
 
@@ -157,13 +112,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8fcfa',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
     paddingTop: 20,
   },
   header: {
     width: '100%',
-    backgroundColor: '#219a2f',
+    backgroundColor: '#219a2f', 
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
@@ -178,8 +131,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 18,
-    color: '#fff',
+    fontSize: 24,
+    color: '#fff', 
     flex: 1,
   },
   dropdownContainer: {
@@ -187,7 +140,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   dropdownToggle: {
-    backgroundColor: '#219a2f',
+    backgroundColor: '#219a2f', 
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -206,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#219a2f',
+    borderColor: '#219a2f', 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -219,49 +172,12 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 18,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2f6e7',
+    borderBottomColor: '#e2f6e7', 
   },
   dropdownItemText: {
-    color: '#219a2f',
+    color: '#219a2f', 
     fontWeight: 'bold',
     fontSize: 16,
-  },
-  heading: {
-    fontWeight: 'bold',
-    fontSize: 28,
-    color: '#219a2f',
-    marginVertical: 18,
-    textAlign: 'center',
-  },
-  cardsRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
-    marginBottom: 20,
-  },
-  card: {
-    backgroundColor: '#e2f6e7',
-    borderColor: '#219a2f',
-    borderWidth: 2,
-    borderRadius: 16,
-    padding: 18,
-    marginHorizontal: 10,
-    width: 180,
-    minHeight: 120,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardTitle: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: '#219a2f',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  cardText: {
-    fontSize: 14,
-    color: '#219a2f',
-    textAlign: 'center',
   },
   ctaBox: {
     backgroundColor: '#e2f6e7',
@@ -269,7 +185,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 16,
     padding: 18,
-    marginTop: 10,
+    marginTop: 20,
+    marginBottom: 20,
     width: '90%',
     alignItems: 'center',
     maxWidth: 400,
@@ -277,7 +194,7 @@ const styles = StyleSheet.create({
   },
   ctaText: {
     fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 28, 
     color: '#219a2f',
     marginBottom: 12,
     textAlign: 'center',
@@ -285,8 +202,8 @@ const styles = StyleSheet.create({
   ctaButtonsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '110%',
-    gap: 0,
+    width: '100%',
+    gap: 8,
   },
   ctaBtn: {
     flex: 1,
@@ -295,8 +212,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 12,
     marginHorizontal: 4,
-    marginTop: 8,
-    minWidth: 0,
+    minWidth: 120,
     maxWidth: 160,
   },
   ctaBtnText: {
